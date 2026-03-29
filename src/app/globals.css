@@ -1,17 +1,24 @@
 @import "tailwindcss";
 
+/* ─── Brand palette (Nido Centro de Terapias) ─────────────────────────────
+   Extracted from Instagram @nido.centrodeterapias
+   Cream background · Soft lavender · Brand purple · Sage green
+────────────────────────────────────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --fc-border-color: #e5e7eb;
-  --fc-button-bg-color: #4f46e5;
-  --fc-button-border-color: #4f46e5;
-  --fc-button-hover-bg-color: #4338ca;
-  --fc-button-hover-border-color: #4338ca;
-  --fc-button-active-bg-color: #3730a3;
-  --fc-today-bg-color: #eef2ff;
+  --background: #F5F0E8;          /* warm cream */
+  --foreground: #1C1C1C;          /* near-black */
+
+  /* FullCalendar – brand purple */
+  --fc-border-color: #DDD5E8;
+  --fc-button-bg-color: #9B7FC0;
+  --fc-button-border-color: #9B7FC0;
+  --fc-button-hover-bg-color: #7B5FA0;
+  --fc-button-hover-border-color: #7B5FA0;
+  --fc-button-active-bg-color: #6B4F90;
+  --fc-today-bg-color: #F5F0FA;
   --fc-now-indicator-color: #ef4444;
-  --fc-highlight-color: rgba(79, 70, 229, 0.1);
+  --fc-highlight-color: rgba(155, 127, 192, 0.1);
 }
 
 @theme inline {
@@ -19,6 +26,33 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Override indigo → brand purple */
+  --color-indigo-50:  #F5F0FA;
+  --color-indigo-100: #EBE0F5;
+  --color-indigo-200: #D9C8ED;
+  --color-indigo-300: #C4AED8;   /* light lavender */
+  --color-indigo-400: #B09AC8;
+  --color-indigo-500: #A88ABC;
+  --color-indigo-600: #9B7FC0;   /* primary – buttons, active nav */
+  --color-indigo-700: #7B5FA0;   /* hover */
+  --color-indigo-800: #6B4F90;
+  --color-indigo-900: #3D2D5A;   /* sidebar */
+
+  /* Align blue-100/600/700 (scheduled badges) with lavender tones */
+  --color-blue-100: #EBE0F5;
+  --color-blue-600: #9B7FC0;
+  --color-blue-700: #7B5FA0;
+  --color-blue-500: #A88ABC;
+
+  /* Keep green, amber, red semantic – green matches brand sage */
+  --color-green-600: #7A9E77;
+  --color-green-700: #5F8A5C;
+  --color-green-100: #E4EFE3;
+
+  /* Sage green token for direct use */
+  --color-sage-600: #8FAF8A;
+  --color-sage-100: #E4EFE3;
 }
 
 body {
@@ -46,7 +80,7 @@ body {
 
 .fc-theme-standard td,
 .fc-theme-standard th {
-  border-color: #e5e7eb;
+  border-color: #DDD5E8;
 }
 
 .fc .fc-timegrid-slot {
@@ -60,5 +94,5 @@ body {
 }
 
 .fc .fc-resource-timeline-divider {
-  border-color: #e5e7eb;
+  border-color: #DDD5E8;
 }
