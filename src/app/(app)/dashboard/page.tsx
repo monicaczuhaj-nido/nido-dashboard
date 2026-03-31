@@ -73,7 +73,7 @@ export default async function DashboardPage() {
 
               const statusColors: Record<string, string> = {
                 scheduled: 'bg-blue-100 text-blue-700',
-                completed: 'bg-green-100 text-green-700',
+                completed: 'bg-indigo-100 text-indigo-700',
                 cancelled: 'bg-red-100 text-red-700',
                 no_show: 'bg-gray-100 text-gray-700',
               }

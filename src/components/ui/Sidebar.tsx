@@ -49,7 +49,7 @@ export default function Sidebar({ userFullName, userRole }: SidebarProps) {
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                 isActive
                   ? 'bg-indigo-600 text-white'
-                  : 'text-indigo-300 hover:text-white hover:bg-[#3D2D5A]'
+                  : 'text-purple-300 hover:text-white hover:bg-[#3D2D5A]'
               }`}
             >
               <Icon size={16} />
@@ -61,18 +61,18 @@ export default function Sidebar({ userFullName, userRole }: SidebarProps) {
 
       <div className="p-4 border-t border-[#3D2D5A]">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
+          <div className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
             {getInitials(userFullName)}
           </div>
           <div className="overflow-hidden">
             <p className="text-white text-xs font-medium truncate">{userFullName}</p>
-            <p className="text-indigo-300 text-xs capitalize">{userRole}</p>
+            <p className="text-purple-300 text-xs capitalize">{userRole}</p>
           </div>
         </div>
         <form action={logoutAction}>
           <button
             type="submit"
-            className="w-full flex items-center gap-2 px-3 py-2 text-indigo-300 hover:text-white hover:bg-[#3D2D5A] rounded-lg text-sm transition-colors"
+            className="w-full flex items-center gap-2 px-3 py-2 text-purple-300 hover:text-white hover:bg-[#3D2D5A] rounded-lg text-sm transition-colors"
           >
             <LogOut size={14} />
             Cerrar sesión
