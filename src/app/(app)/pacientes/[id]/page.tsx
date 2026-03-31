@@ -31,9 +31,11 @@ export default async function PatientDetailPage({ params }: PageProps) {
 
   if (!patient) notFound()
 
+  // eslint-disable-next-line react-hooks/purity
+  const now = Date.now()
   const age = patient.date_of_birth
     ? Math.floor(
-        (Date.now() - new Date(patient.date_of_birth).getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+        (now - new Date(patient.date_of_birth).getTime()) / (1000 * 60 * 60 * 24 * 365.25)
       )
     : null
 
@@ -46,7 +48,7 @@ export default async function PatientDetailPage({ params }: PageProps) {
 
   const statusColors: Record<string, string> = {
     scheduled: 'bg-blue-100 text-blue-700',
-    completed: 'bg-green-100 text-green-700',
+    completed: 'bg-indigo-100 text-indigo-700',
     cancelled: 'bg-red-100 text-red-700',
     no_show: 'bg-gray-100 text-gray-700',
   }

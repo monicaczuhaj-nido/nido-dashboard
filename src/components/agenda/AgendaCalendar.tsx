@@ -17,8 +17,8 @@ interface AgendaCalendarProps {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  scheduled: '#4f46e5',
-  completed: '#16a34a',
+  scheduled: '#9B7FC0',  // brand purple (lavender)
+  completed: '#7A9E77',  // sage green – indigo-600
   cancelled: '#dc2626',
   no_show: '#9ca3af',
 }
