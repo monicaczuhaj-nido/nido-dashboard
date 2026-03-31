@@ -22,7 +22,7 @@ export default async function ConsultoriosPage() {
     ])
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-gray-900">Consultorios</h1>
         <p className="text-gray-500 text-sm mt-1">
