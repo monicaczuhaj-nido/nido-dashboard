@@ -18,6 +18,7 @@ interface BookingModalProps {
   consultorio: Consultorio | null
   consultorios: Consultorio[]
   professionals: (Professional & { profiles: { full_name: string } })[]
+  patients: { id: string; first_name: string; last_name: string }[]
   initialStart?: string
   initialEnd?: string
   existingBooking?: ExistingBooking | null
@@ -34,6 +35,7 @@ export default function BookingModal({
   consultorio,
   consultorios,
   professionals,
+  patients,
   initialStart = '',
   initialEnd = '',
   existingBooking = null,
@@ -119,6 +121,22 @@ export default function BookingModal({
               {professionals.map((p) => (
                 <option key={p.id} value={p.id}>
                   {p.profiles.full_name}{p.specialty ? ` — ${p.specialty}` : ''}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Paciente (opcional)</label>
+            <select
+              name="patient_id"
+              defaultValue=""
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="">Sin paciente asignado</option>
+              {patients.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.last_name}, {p.first_name}
                 </option>
               ))}
             </select>

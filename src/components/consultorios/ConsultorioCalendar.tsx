@@ -13,6 +13,7 @@ interface ConsultorioCalendarProps {
   consultorios: Consultorio[]
   bookings: BookingWithProfessional[]
   professionals: (Professional & { profiles: { full_name: string } })[]
+  patients: { id: string; first_name: string; last_name: string }[]
 }
 
 interface ModalState {
@@ -39,6 +40,7 @@ export default function ConsultorioCalendar({
   consultorios,
   bookings,
   professionals,
+  patients,
 }: ConsultorioCalendarProps) {
   const [modal, setModal] = useState<ModalState>({
     open: false,
@@ -144,6 +146,7 @@ export default function ConsultorioCalendar({
           consultorio={modal.consultorio}
           consultorios={consultorios}
           professionals={professionals}
+          patients={patients}
           initialStart={modal.initialStart}
           initialEnd={modal.initialEnd}
           existingBooking={modal.existingBooking}

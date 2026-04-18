@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import AgendaCalendar from '@/components/agenda/AgendaCalendar'
-import type { AppointmentWithPatient, Booking } from '@/types'
+import type { AppointmentWithPatient, Booking, Professional, Profile } from '@/types'
 
 export default async function AgendaPage() {
   const supabase = await createClient()
@@ -13,7 +13,7 @@ export default async function AgendaPage() {
     .eq('profile_id', user!.id)
     .single()
 
-  const [{ data: appointments }, { data: patients }, { data: consultorios }, { data: activeBookings }] =
+  const [{ data: appointments }, { data: patients }, { data: consultorios }, { data: activeBookings }, { data: professionalBookings }, { data: professionals }] =
     await Promise.all([
       supabase
         .from('appointments')
@@ -33,6 +33,16 @@ export default async function AgendaPage() {
         .from('bookings')
         .select('id, consultorio_id, start_time, end_time')
         .eq('status', 'active'),
+      supabase
+        .from('bookings')
+        .select('id, consultorio_id, professional_id, title, start_time, end_time, consultorios(name)')
+        .eq('professional_id', professional?.id ?? '')
+        .eq('status', 'active')
+        .order('start_time'),
+      supabase
+        .from('professionals')
+        .select('id, profile_id, specialty, license_number, color, created_at, profiles(full_name)')
+        .order('created_at'),
     ])
 
   return (
@@ -49,6 +59,8 @@ export default async function AgendaPage() {
         patients={patients ?? []}
         consultorios={consultorios ?? []}
         activeBookings={(activeBookings ?? []) as Pick<Booking, 'id' | 'consultorio_id' | 'start_time' | 'end_time'>[]}
+        professionalBookings={(professionalBookings ?? []) as { id: string; consultorio_id: string; professional_id: string; title: string | null; start_time: string; end_time: string; consultorios: { name: string } | null }[]}
+        professionals={(professionals ?? []) as (Professional & { profiles: Pick<Profile, 'full_name'> })[]}
       />
     </div>
   )

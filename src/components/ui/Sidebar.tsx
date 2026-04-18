@@ -17,7 +17,7 @@ import { logoutAction } from '@/app/(auth)/actions'
 import { getInitials } from '@/lib/utils'
 
 const navItems = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard', label: 'Panel Principal', icon: LayoutDashboard },
   { href: '/consultorios', label: 'Consultorios', icon: DoorOpen },
   { href: '/agenda', label: 'Agenda', icon: CalendarDays },
   { href: '/pacientes', label: 'Pacientes', icon: Users },
