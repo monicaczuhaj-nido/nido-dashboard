@@ -91,18 +91,22 @@ body {
 }
 
 /* ── Resource column separators ─────────────────────────────────── */
+.fc .fc-header-toolbar {
+  padding: 0.75rem 0.75rem 0;
+}
+
 .fc .fc-col-header-cell.fc-resource {
   background-color: #DEEEE8;
   border-left: 3px solid #8AAE9F !important;
   font-weight: 600;
 }
 
-/* Body column separator — assumes 5-day week (weekends=false) */
+/* Body column separator — 5-day week (weekends=false), no time-axis td in body */
 .fc .fc-timegrid-col:nth-child(5n+1):not(:first-child) {
   border-left: 3px solid #8AAE9F !important;
 }
 
-/* Also apply thick border to the day sub-header row at resource boundaries */
-.fc .fc-col-header-cell:not(.fc-resource):nth-child(5n+1):not(:first-child) {
+/* Day sub-header row separator — time-axis th sits at position 1, so offset by 1 */
+.fc .fc-col-header-cell:not(.fc-resource):nth-child(5n+2):not(:nth-child(2)) {
   border-left: 3px solid #8AAE9F !important;
 }

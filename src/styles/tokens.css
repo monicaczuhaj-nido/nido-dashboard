@@ -30,7 +30,7 @@
   --foreground: var(--nido-black);
 
   /* ── FullCalendar overrides ──────────────────────────────────── */
-  --fc-border-color:              #C8DDD8;
+  --fc-border-color:              #E5E7EB;
   --fc-button-bg-color:           var(--nido-sage-600);
   --fc-button-border-color:       var(--nido-sage-600);
   --fc-button-hover-bg-color:     var(--nido-sage-700);
