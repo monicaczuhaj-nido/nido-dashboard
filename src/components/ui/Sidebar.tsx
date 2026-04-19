@@ -13,6 +13,7 @@ import {
   LogOut,
   Menu,
   X,
+  Palette,
 } from 'lucide-react'
 import { logoutAction } from '@/app/(auth)/actions'
 import { getInitials } from '@/lib/utils'
@@ -23,6 +24,7 @@ const navItems = [
   { href: '/agenda',        label: 'Agenda',           icon: CalendarDays },
   { href: '/pacientes',     label: 'Pacientes',        icon: Users },
   { href: '/sesiones/nueva', label: 'Nueva sesión',   icon: FileText },
+  { href: '/brand', label: 'Manual de marca', icon: Palette },
 ]
 
 interface SidebarProps {
