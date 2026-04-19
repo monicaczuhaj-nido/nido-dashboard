@@ -89,3 +89,20 @@ body {
 .fc .fc-resource-timeline-divider {
   border-color: var(--fc-border-color);
 }
+
+/* ── Resource column separators ─────────────────────────────────── */
+.fc .fc-col-header-cell.fc-resource {
+  background-color: #DEEEE8;
+  border-left: 3px solid #8AAE9F !important;
+  font-weight: 600;
+}
+
+/* Body column separator — assumes 5-day week (weekends=false) */
+.fc .fc-timegrid-col:nth-child(5n+1):not(:first-child) {
+  border-left: 3px solid #8AAE9F !important;
+}
+
+/* Also apply thick border to the day sub-header row at resource boundaries */
+.fc .fc-col-header-cell:not(.fc-resource):nth-child(5n+1):not(:first-child) {
+  border-left: 3px solid #8AAE9F !important;
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -50,11 +50,24 @@ export default function ConsultorioCalendar({
     existingBooking: null,
   })
 
-  const resources: ResourceInput[] = consultorios.map((c) => ({
-    id: c.id,
-    title: c.name,
-    eventColor: c.color,
-  }))
+  const resources: ResourceInput[] = [...consultorios]
+    .sort((a, b) => a.name.localeCompare(b.name, 'es'))
+    .map((c) => ({
+      id: c.id,
+      title: c.name,
+      eventColor: c.color,
+    }))
+
+  const initialDate = useMemo(() => {
+    const today = new Date()
+    const day = today.getDay() // 0=Sun, 6=Sat
+    if (day === 0 || day === 6) {
+      const next = new Date(today)
+      next.setDate(today.getDate() + (day === 6 ? 2 : 1))
+      return next
+    }
+    return today
+  }, [])
 
   const events: EventInput[] = bookings
     .filter((b) => b.status === 'active')
@@ -107,6 +120,7 @@ export default function ConsultorioCalendar({
         <FullCalendar
           plugins={[resourceTimeGridPlugin, interactionPlugin]}
           initialView="resourceTimeGridWeek"
+          initialDate={initialDate}
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
