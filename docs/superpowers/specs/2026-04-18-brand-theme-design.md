@@ -204,9 +204,14 @@ export const metadata = {
 Replace current text-only logo in `Sidebar.tsx`:
 
 ```tsx
-<Image src="/logo-bird.png" alt="Nido" width={28} height={28} className="object-contain" />
+<Image src="/logo-bird.png" alt="Nido" width={40} height={40} className="object-contain" />
 <span className="font-light tracking-wide text-white">Nido</span>
 ```
+
+Logo display sizes:
+- Sidebar (collapsed/desktop): 40×40px bird + "Nido" wordmark
+- Brand manual header: 120×120px bird + large wordmark
+- Brand manual variant cards: 96×96px bird
 
 ---
 
