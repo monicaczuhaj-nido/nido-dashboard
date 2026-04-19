@@ -101,8 +101,8 @@ body {
   font-weight: 600;
 }
 
-/* Body column separator — 5-day week (weekends=false), no time-axis td in body */
-.fc .fc-timegrid-col:nth-child(5n+1):not(:first-child) {
+/* Body column separator — 5-day week (weekends=false), time-axis td at pos 1 */
+.fc .fc-timegrid-col:nth-child(5n+2):not(:nth-child(2)) {
   border-left: 3px solid #8AAE9F !important;
 }
 
