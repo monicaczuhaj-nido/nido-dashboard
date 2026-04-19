@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -32,6 +32,17 @@ function toLocalDatetimeString(date: Date): string {
 }
 
 export default function AgendaCalendar({ appointments, patients, consultorios, activeBookings, professionalBookings, professionals }: AgendaCalendarProps) {
+  const initialDate = useMemo(() => {
+    const today = new Date()
+    const day = today.getDay()
+    if (day === 0 || day === 6) {
+      const next = new Date(today)
+      next.setDate(today.getDate() + (day === 6 ? 2 : 1))
+      return next
+    }
+    return today
+  }, [])
+
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedStart, setSelectedStart] = useState('')
   const [selectedEnd, setSelectedEnd] = useState('')
@@ -129,6 +140,7 @@ export default function AgendaCalendar({ appointments, patients, consultorios, a
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           initialView="timeGridWeek"
+          initialDate={initialDate}
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
