@@ -122,10 +122,10 @@ export default function Sidebar({ userFullName, userRole }: SidebarProps) {
         {/* Logo */}
         <div className="p-5 border-b border-white/20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Image src="/logo-bird.png" alt="Nido" width={40} height={40} className="object-contain" />
-            <div className="flex flex-col leading-tight">
-              <span className="text-white font-light text-lg tracking-wide">Nido</span>
-              <span className="text-white/60 font-light text-xs tracking-widest">Centro de terapias</span>
+            <div className="flex flex-col leading-tight items-center">
+            <Image src="/logo-bird.png" alt="Nido" width={200} height={100} className="object-contain -my-20" />
+              <span className="text-white font-light text-2xl tracking-wide">Nido</span>
+              <span className="text-white/60 font-light text-lg tracking-widest">Centro de terapias</span>
             </div>
           </div>
           <button
