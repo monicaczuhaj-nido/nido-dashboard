@@ -1,80 +1,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 @import "tailwindcss";
-
-/* ─── Brand palette (Nido Centro de Terapias) ─────────────────────────────
-   Extracted from Instagram @nido.centrodeterapias
-   Cream background · Soft lavender · Brand purple · Sage green (#7A9E77)
-────────────────────────────────────────────────────────────────────────── */
-
-:root {
-  --background: #F5F0E8;          /* warm cream */
-  --foreground: #1C1C1C;          /* near-black */
-
-  /* FullCalendar – sage green (matches new indigo-600) */
-  --fc-border-color: #C8DFC7;
-  --fc-button-bg-color: #7A9E77;
-  --fc-button-border-color: #7A9E77;
-  --fc-button-hover-bg-color: #618961;
-  --fc-button-hover-border-color: #618961;
-  --fc-button-active-bg-color: #4E724E;
-  --fc-today-bg-color: #F1F7F1;
-  --fc-now-indicator-color: #ef4444;
-  --fc-highlight-color: rgba(122, 158, 119, 0.12);
-}
+@import "../styles/tokens.css";
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --font-sans:    var(--font-dm-sans);
+  --font-heading: var(--font-cormorant);
 
-  /* ── Brand font: Nunito (matches Instagram post typography) ── */
-  --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono);
+  /* ── Sage scale (new primary) ──────────────────────────────── */
+  --color-sage-50:  var(--nido-sage-50);
+  --color-sage-100: var(--nido-sage-100);
+  --color-sage-200: var(--nido-sage-200);
+  --color-sage-300: var(--nido-sage-300);
+  --color-sage-500: var(--nido-sage-500);
+  --color-sage-600: var(--nido-sage-600);
+  --color-sage-700: var(--nido-sage-700);
+  --color-sage-800: var(--nido-sage-800);
+  --color-sage-900: var(--nido-sage-900);
 
-  /* ── Indigo → Sage green scale (#7A9E77 @ 600) ──────────────
-     Drives all primary UI: buttons, active nav, focus rings, links
-  ─────────────────────────────────────────────────────────────── */
-  --color-indigo-50:  #F1F7F1;
-  --color-indigo-100: #E4EFE3;
-  --color-indigo-200: #C8DFC7;
-  --color-indigo-300: #ADCFAB;
-  --color-indigo-400: #91BF8E;
-  --color-indigo-500: #84B381;
-  --color-indigo-600: #7A9E77;   /* primary – buttons, active nav */
-  --color-indigo-700: #618961;   /* hover */
-  --color-indigo-800: #4E724E;
-  --color-indigo-900: #3B5A3C;   /* sidebar */
+  /* ── Indigo aliased to sage (backward compat — no component rewrites needed) */
+  --color-indigo-50:  var(--nido-sage-50);
+  --color-indigo-100: var(--nido-sage-100);
+  --color-indigo-200: var(--nido-sage-200);
+  --color-indigo-300: var(--nido-sage-300);
+  --color-indigo-500: var(--nido-sage-500);
+  --color-indigo-600: var(--nido-sage-600);
+  --color-indigo-700: var(--nido-sage-700);
+  --color-indigo-800: var(--nido-sage-800);
+  --color-indigo-900: var(--nido-sage-900);
 
-  /* ── Blue → Brand lavender (scheduled badges) ────────────────*/
-  --color-blue-100: #EBE0F5;
-  --color-blue-500: #A88ABC;
-  --color-blue-600: #9B7FC0;
-  --color-blue-700: #7B5FA0;
+  /* ── Blue aliased to sage (appointment badges) ─────────────── */
+  --color-blue-100: var(--nido-sage-100);
+  --color-blue-500: var(--nido-sage-500);
+  --color-blue-600: var(--nido-sage-600);
+  --color-blue-700: var(--nido-sage-700);
 
-  /* ── Green stays semantic (success / positive feedback) ──────*/
-  --color-green-100: #DCFCE7;
-  --color-green-600: #16a34a;
-  --color-green-700: #15803d;
+  /* ── Purple (secondary / status) ───────────────────────────── */
+  --color-purple-100: var(--nido-purple-100);
+  --color-purple-300: var(--nido-purple-300);
+  --color-purple-600: var(--nido-purple-600);
+  --color-purple-700: var(--nido-purple-700);
 
-  /* ── Purple → Brand purple (accent, modals, highlights) ──────*/
-  --color-purple-50:  #F5F0FA;
-  --color-purple-100: #EBE0F5;
-  --color-purple-200: #D9C8ED;
-  --color-purple-300: #C4AED8;
-  --color-purple-400: #B09AC8;
-  --color-purple-500: #A88ABC;
-  --color-purple-600: #9B7FC0;
-  --color-purple-700: #7B5FA0;
-  --color-purple-800: #6B4F90;
-  --color-purple-900: #3D2D5A;
+  /* ── Green (status: atendido) ───────────────────────────────── */
+  --color-green-100: #E4EFE3;
+  --color-green-600: #7A9E77;
+  --color-green-700: #5F8A5C;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
 }
 
-/* FullCalendar overrides */
+/* ── FullCalendar layout overrides ─────────────────────────────── */
 .fc .fc-toolbar-title {
   font-size: 1rem;
   font-weight: 600;
@@ -93,7 +73,7 @@ body {
 
 .fc-theme-standard td,
 .fc-theme-standard th {
-  border-color: #DDD5E8;
+  border-color: var(--fc-border-color);
 }
 
 .fc .fc-timegrid-slot {
@@ -107,5 +87,5 @@ body {
 }
 
 .fc .fc-resource-timeline-divider {
-  border-color: #DDD5E8;
+  border-color: var(--fc-border-color);
 }
