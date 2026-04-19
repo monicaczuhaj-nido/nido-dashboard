@@ -1,0 +1,42 @@
+/* src/styles/tokens.css
+   Single source of truth for Nido brand values.
+   Import this in globals.css — do not use these variables directly in components. */
+
+:root {
+  /* ── Sage / Teal scale ───────────────────────────────────────── */
+  --nido-sage-50:  #F2F7F5;
+  --nido-sage-100: #DEEEE8;
+  --nido-sage-200: #BEDDD3;
+  --nido-sage-300: #9DCABF;
+  --nido-sage-500: #5EA697;
+  --nido-sage-600: #8AAE9F;   /* primary — buttons, active nav   */
+  --nido-sage-700: #6B9488;   /* hover                           */
+  --nido-sage-800: #4D7A6E;
+  --nido-sage-900: #2F5F54;   /* sidebar background              */
+
+  /* ── Purple scale (secondary / status) ──────────────────────── */
+  --nido-purple-100: #EBE0F5;
+  --nido-purple-300: #C4AED8;
+  --nido-purple-600: #9B7FC0;
+  --nido-purple-700: #7B5FA0;
+  --nido-purple-900: #3D2D5A;
+
+  /* ── Neutrals ────────────────────────────────────────────────── */
+  --nido-cream: #F5F2EC;
+  --nido-black: #1C1C1C;
+
+  /* ── Semantic ────────────────────────────────────────────────── */
+  --background: var(--nido-cream);
+  --foreground: var(--nido-black);
+
+  /* ── FullCalendar overrides ──────────────────────────────────── */
+  --fc-border-color:              #C8DDD8;
+  --fc-button-bg-color:           var(--nido-sage-600);
+  --fc-button-border-color:       var(--nido-sage-600);
+  --fc-button-hover-bg-color:     var(--nido-sage-700);
+  --fc-button-hover-border-color: var(--nido-sage-700);
+  --fc-button-active-bg-color:    var(--nido-sage-800);
+  --fc-today-bg-color:            var(--nido-sage-50);
+  --fc-now-indicator-color:       #ef4444;
+  --fc-highlight-color:           rgba(94, 166, 151, 0.12);
+}
