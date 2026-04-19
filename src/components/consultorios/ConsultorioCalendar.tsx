@@ -119,6 +119,7 @@ export default function ConsultorioCalendar({
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <FullCalendar
           plugins={[resourceTimeGridPlugin, interactionPlugin]}
+          schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
           initialView="resourceTimeGridWeek"
           initialDate={initialDate}
           headerToolbar={{
