@@ -49,8 +49,8 @@ export default function Sidebar({ userFullName, userRole }: SidebarProps) {
               onClick={close}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                 isActive
-                  ? 'bg-sage-600 text-white'
-                  : 'text-sage-300 hover:text-white hover:bg-sage-800'
+                  ? 'bg-sage-900 text-white'
+                  : 'text-white/70 hover:text-white hover:bg-sage-700'
               }`}
             >
               <Icon size={16} />
@@ -60,20 +60,20 @@ export default function Sidebar({ userFullName, userRole }: SidebarProps) {
         })}
       </nav>
 
-      <div className="p-4 border-t border-sage-800">
+      <div className="p-4 border-t border-white/20">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 rounded-full bg-sage-600 flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
+          <div className="w-8 h-8 rounded-full bg-sage-900 flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
             {getInitials(userFullName)}
           </div>
           <div className="overflow-hidden">
             <p className="text-white text-xs font-medium truncate">{userFullName}</p>
-            <p className="text-sage-300 text-xs capitalize">{userRole}</p>
+            <p className="text-white/60 text-xs capitalize">{userRole}</p>
           </div>
         </div>
         <form action={logoutAction}>
           <button
             type="submit"
-            className="w-full flex items-center gap-2 px-3 py-2 text-sage-300 hover:text-white hover:bg-sage-800 rounded-lg text-sm transition-colors"
+            className="w-full flex items-center gap-2 px-3 py-2 text-white/70 hover:text-white hover:bg-sage-700 rounded-lg text-sm transition-colors"
           >
             <LogOut size={14} />
             Cerrar sesión
@@ -86,10 +86,10 @@ export default function Sidebar({ userFullName, userRole }: SidebarProps) {
   return (
     <>
       {/* Mobile top bar */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-sage-900 flex items-center gap-3 px-4 border-b border-sage-800">
+      <header className="md:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-sage-600 flex items-center gap-3 px-4 border-b border-white/20">
         <button
           onClick={() => setIsOpen(true)}
-          className="text-sage-300 hover:text-white transition-colors"
+          className="text-white/70 hover:text-white transition-colors"
           aria-label="Abrir menú"
         >
           <Menu size={22} />
@@ -113,24 +113,24 @@ export default function Sidebar({ userFullName, userRole }: SidebarProps) {
       <aside
         className={`
           fixed md:static inset-y-0 left-0 z-50
-          w-64 min-h-screen bg-sage-900 flex flex-col
+          w-64 min-h-screen bg-sage-600 flex flex-col
           transition-transform duration-300 ease-in-out
           md:translate-x-0
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
         {/* Logo */}
-        <div className="p-5 border-b border-sage-800 flex items-center justify-between">
+        <div className="p-5 border-b border-white/20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image src="/logo-bird.png" alt="Nido" width={40} height={40} className="object-contain" />
             <div className="flex flex-col leading-tight">
               <span className="text-white font-light text-lg tracking-wide">Nido</span>
-              <span className="text-sage-300 font-light text-xs tracking-widest">Centro de terapias</span>
+              <span className="text-white/60 font-light text-xs tracking-widest">Centro de terapias</span>
             </div>
           </div>
           <button
             onClick={close}
-            className="md:hidden text-sage-300 hover:text-white transition-colors"
+            className="md:hidden text-white/60 hover:text-white transition-colors"
             aria-label="Cerrar menú"
           >
             <X size={18} />
