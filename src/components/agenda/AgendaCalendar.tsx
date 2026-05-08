@@ -6,13 +6,12 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import type { DateSelectArg, EventClickArg, EventInput } from '@fullcalendar/core'
-import type { Patient, AppointmentWithPatient, Consultorio, Booking, Professional, Profile } from '@/types'
+import type { AppointmentWithPatient, Consultorio, Booking, Professional, Profile } from '@/types'
 import AppointmentModal from './AppointmentModal'
 import BookingModal from '@/components/consultorios/BookingModal'
 
 interface AgendaCalendarProps {
   appointments: AppointmentWithPatient[]
-  patients: Patient[]
   consultorios: Consultorio[]
   activeBookings: Pick<Booking, 'id' | 'consultorio_id' | 'start_time' | 'end_time'>[]
   professionalBookings: { id: string; consultorio_id: string; professional_id: string; title: string | null; start_time: string; end_time: string; consultorios: { name: string } | null }[]
@@ -31,7 +30,7 @@ function toLocalDatetimeString(date: Date): string {
   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
 }
 
-export default function AgendaCalendar({ appointments, patients, consultorios, activeBookings, professionalBookings, professionals }: AgendaCalendarProps) {
+export default function AgendaCalendar({ appointments, consultorios, activeBookings, professionalBookings, professionals }: AgendaCalendarProps) {
   const initialDate = useMemo(() => {
     const today = new Date()
     const day = today.getDay()
@@ -165,7 +164,6 @@ export default function AgendaCalendar({ appointments, patients, consultorios, a
 
       {modalOpen && (
         <AppointmentModal
-          patients={patients}
           consultorios={consultorios}
           activeBookings={activeBookings}
           initialStart={selectedStart}
@@ -180,7 +178,6 @@ export default function AgendaCalendar({ appointments, patients, consultorios, a
           consultorio={consultorios.find((c) => c.id === selectedBooking.consultorio_id) ?? null}
           consultorios={consultorios}
           professionals={professionals}
-          patients={patients.map((p) => ({ id: p.id, first_name: p.first_name, last_name: p.last_name }))}
           existingBooking={selectedBooking}
           onClose={() => setSelectedBooking(null)}
         />

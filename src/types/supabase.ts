@@ -306,6 +306,75 @@ export type Database = {
           }
         ]
       }
+      consultas: {
+        Row: {
+          id: string
+          created_at: string
+          nombre: string
+          email: string | null
+          telefono: string | null
+          edad: string | null
+          lugar_residencia: string | null
+          tipo_terapia: string | null
+          tipo_consulta: 'adultos' | 'infanto_juvenil'
+          motivo: string
+          como_nos_conocio: string | null
+          horario_preferido: string | null
+          estado: 'nueva' | 'en_evaluacion' | 'contactada' | 'descartada' | 'derivado'
+          professional_id: string | null
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          nombre: string
+          email?: string | null
+          telefono?: string | null
+          edad?: string | null
+          lugar_residencia?: string | null
+          tipo_terapia?: string | null
+          tipo_consulta?: 'adultos' | 'infanto_juvenil'
+          motivo: string
+          como_nos_conocio?: string | null
+          horario_preferido?: string | null
+          estado?: 'nueva' | 'en_evaluacion' | 'contactada' | 'descartada' | 'derivado'
+          professional_id?: string | null
+        }
+        Update: {
+          estado?: 'nueva' | 'en_evaluacion' | 'contactada' | 'descartada' | 'derivado'
+          professional_id?: string | null
+        }
+        Relationships: []
+      }
+      consulta_comentarios: {
+        Row: {
+          id: string
+          created_at: string
+          consulta_id: string
+          user_id: string
+          contenido: string
+          autor_nombre: string
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          consulta_id: string
+          user_id: string
+          contenido: string
+          autor_nombre: string
+        }
+        Update: {
+          [key: string]: never
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'consulta_comentarios_consulta_id_fkey'
+            columns: ['consulta_id']
+            isOneToOne: false
+            referencedRelation: 'consultas'
+            referencedColumns: ['id']
+          }
+        ]
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>

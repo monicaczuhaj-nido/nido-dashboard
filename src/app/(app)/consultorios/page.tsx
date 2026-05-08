@@ -5,7 +5,7 @@ import type { BookingWithProfessional } from '@/types'
 export default async function ConsultoriosPage() {
   const supabase = await createClient()
 
-  const [{ data: consultorios }, { data: bookings }, { data: professionals }, { data: patients }] =
+  const [{ data: consultorios }, { data: bookings }, { data: professionals }] =
     await Promise.all([
       supabase.from('consultorios').select('*').order('name'),
       supabase
@@ -19,10 +19,6 @@ export default async function ConsultoriosPage() {
         .from('professionals')
         .select('id, profile_id, specialty, license_number, color, created_at, profiles(full_name)')
         .order('created_at'),
-      supabase
-        .from('patients')
-        .select('id, first_name, last_name')
-        .order('last_name'),
     ])
 
   return (
@@ -40,7 +36,6 @@ export default async function ConsultoriosPage() {
         professionals={
           (professionals ?? []) as (typeof professionals extends (infer T)[] | null ? T : never)[]
         }
-        patients={(patients ?? []) as { id: string; first_name: string; last_name: string }[]}
       />
     </div>
   )

@@ -3,12 +3,20 @@
 @import "../styles/tokens.css";
 
 @theme inline {
-  --color-background: #F5F2EC;
-  --color-foreground: #1C1C1C;
+  --color-background: #FAF8F4;
+  --color-foreground: #2A2A2A;
   --font-sans:    var(--font-dm-sans);
   --font-heading: var(--font-cormorant);
+  --font-karma:   var(--font-karma);
 
-  /* ── Sage scale (new primary) — static hex required by Tailwind v4 @theme */
+  /* ── Brand palette (colorimetría exacta) ─────────────────── */
+  --color-cream:      #FAF8F4;
+  --color-sage:       #A2B9A9;
+  --color-olive:      #809671;
+  --color-lavender:   #A99BC4;
+  --color-lavender-l: #D1C5E1;
+
+  /* ── Sage scale (app internals) — static hex required by Tailwind v4 @theme */
   --color-sage-50:  #F2F7F5;
   --color-sage-100: #DEEEE8;
   --color-sage-200: #BEDDD3;
@@ -46,12 +54,39 @@
   --color-green-100: #E4EFE3;
   --color-green-600: #7A9E77;
   --color-green-700: #5F8A5C;
+
+  /* ── Landing text scale ─────────────────────────────────────── */
+  --color-text-mid:  #5C5C5C;
+  --color-text-soft: #9A9A9A;
+
+  /* ── Brand font (Black Mango → Nunito fallback) ─────────────── */
+  --font-brand: 'Black Mango', 'Nunito', sans-serif;
+
+  /* ── Landing animations ─────────────────────────────────────── */
+  --animate-fade-slide-up: fadeSlideUp 1s ease both;
+  --animate-breathe:       breathe 7s ease-in-out infinite;
+  --animate-fade-in:       fadeIn 1.4s ease both;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-10px) scale(1.015); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ── FullCalendar layout overrides ─────────────────────────────── */

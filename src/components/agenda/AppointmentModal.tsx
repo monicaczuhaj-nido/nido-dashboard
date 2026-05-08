@@ -2,11 +2,11 @@
 
 import { useState, useMemo } from 'react'
 import { X } from 'lucide-react'
-import type { Patient, Consultorio, Booking } from '@/types'
+import type { Consultorio, Booking } from '@/types'
 import { createAppointment, updateAppointmentStatus } from '@/app/(app)/agenda/actions'
+import PatientCombobox from '@/components/ui/PatientCombobox'
 
 interface AppointmentModalProps {
-  patients: Patient[]
   consultorios: Consultorio[]
   activeBookings: Pick<Booking, 'id' | 'consultorio_id' | 'start_time' | 'end_time'>[]
   initialStart?: string
@@ -36,7 +36,6 @@ function toLocalDatetimeString(date: Date): string {
 }
 
 export default function AppointmentModal({
-  patients,
   consultorios,
   activeBookings,
   initialStart = '',
@@ -159,12 +158,7 @@ export default function AppointmentModal({
         <form onSubmit={handleCreate} className="p-6 space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-            <select name="patient_id" required className={inputClass}>
-              <option value="">Seleccionar paciente...</option>
-              {patients.map((p) => (
-                <option key={p.id} value={p.id}>{p.first_name} {p.last_name}</option>
-              ))}
-            </select>
+            <PatientCombobox name="patient_id" required />
           </div>
 
           <div>

@@ -14,13 +14,15 @@ import {
   Menu,
   X,
   Palette,
+  Inbox,
 } from 'lucide-react'
 import { logoutAction } from '@/app/(auth)/actions'
 import { getInitials } from '@/lib/utils'
 
 const navItems = [
-  { href: '/dashboard',     label: 'Panel Principal', icon: LayoutDashboard },
-  { href: '/consultorios',  label: 'Consultorios',    icon: DoorOpen },
+  { href: '/dashboard',     label: 'Panel Principal',   icon: LayoutDashboard },
+  { href: '/consultas',     label: 'Consultas',          icon: Inbox          },
+  { href: '/consultorios',  label: 'Consultorios',       icon: DoorOpen       },
   { href: '/agenda',        label: 'Agenda',           icon: CalendarDays },
   { href: '/pacientes',     label: 'Pacientes',        icon: Users },
   { href: '/sesiones/nueva', label: 'Nueva sesión',   icon: FileText },
@@ -123,9 +125,9 @@ export default function Sidebar({ userFullName, userRole }: SidebarProps) {
         <div className="p-5 border-b border-white/20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex flex-col leading-tight items-center">
-            <Image src="/logo-bird.png" alt="Nido" width={200} height={100} className="object-contain -my-20" />
-              <span className="text-white font-light text-2xl tracking-wide">Nido</span>
-              <span className="text-white/60 font-light text-lg tracking-widest">Centro de terapias</span>
+              <Image src="/logo-bird.png" alt="Nido" width={200} height={100} className="object-contain -my-20" />
+              {/* <span className="text-white font-light text-2xl tracking-wide">Nido</span>
+              <span className="text-white/60 font-light text-lg tracking-widest">Centro de terapias</span> */}
             </div>
           </div>
           <button

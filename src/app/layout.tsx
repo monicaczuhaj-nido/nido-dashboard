@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { DM_Sans, Cormorant_Garamond } from 'next/font/google'
+import { DM_Sans, Cormorant_Garamond, Karma } from 'next/font/google'
 import './globals.css'
 
 const dmSans = DM_Sans({
@@ -15,6 +15,12 @@ const cormorant = Cormorant_Garamond({
   style: ['normal', 'italic'],
 })
 
+const karma = Karma({
+  variable: '--font-karma',
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+})
+
 export const metadata: Metadata = {
   title: 'Nido — Centro de Terapias',
   description: 'Sistema de gestión para Nido Centro de Terapias',
@@ -26,7 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${dmSans.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${cormorant.variable} ${karma.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

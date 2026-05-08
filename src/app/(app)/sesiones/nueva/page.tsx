@@ -19,8 +19,15 @@ export default async function NuevaSesionPage({ searchParams }: PageProps) {
     .eq('profile_id', user!.id)
     .single()
 
-  const [{ data: patients }, { data: appointments }] = await Promise.all([
-    supabase.from('patients').select('*').order('last_name'),
+  // Only fetch the specific patient if pre-selected (avoids loading entire table)
+  const [{ data: defaultPatient }, { data: appointments }] = await Promise.all([
+    patient_id
+      ? supabase
+          .from('patients')
+          .select('id, first_name, last_name')
+          .eq('id', patient_id)
+          .single()
+      : Promise.resolve({ data: null }),
     supabase
       .from('appointments')
       .select('*')
@@ -49,8 +56,7 @@ export default async function NuevaSesionPage({ searchParams }: PageProps) {
 
       <div className="bg-white rounded-xl border border-gray-200 p-6">
         <SessionForm
-          patients={patients ?? []}
-          defaultPatientId={patient_id}
+          defaultPatient={defaultPatient ?? undefined}
           appointments={appointments ?? []}
         />
       </div>
