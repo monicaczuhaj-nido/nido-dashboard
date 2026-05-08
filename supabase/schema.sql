@@ -153,6 +153,58 @@ CREATE POLICY "Authenticated users can read" ON storage.objects
   FOR SELECT TO authenticated USING (bucket_id = 'session-files');
 
 -- ============================================================
+-- 9. Consultas (inquiries from landing page — public form)
+-- ============================================================
+CREATE TABLE IF NOT EXISTS consultas (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  nombre TEXT NOT NULL,
+  email TEXT,
+  telefono TEXT,
+  edad TEXT,
+  lugar_residencia TEXT,
+  tipo_terapia TEXT,
+  tipo_consulta TEXT NOT NULL DEFAULT 'adultos'
+    CHECK (tipo_consulta IN ('adultos', 'infanto_juvenil')),
+  motivo TEXT NOT NULL,
+  como_nos_conocio TEXT,
+  horario_preferido TEXT,
+  estado TEXT NOT NULL DEFAULT 'nueva'
+    CHECK (estado IN ('nueva','en_evaluacion','contactada','descartada','derivado'))
+);
+
+-- Migration: add new columns to existing databases
+ALTER TABLE consultas ADD COLUMN IF NOT EXISTS edad TEXT;
+ALTER TABLE consultas ADD COLUMN IF NOT EXISTS lugar_residencia TEXT;
+ALTER TABLE consultas ADD COLUMN IF NOT EXISTS tipo_terapia TEXT;
+ALTER TABLE consultas ADD COLUMN IF NOT EXISTS tipo_consulta TEXT DEFAULT 'adultos';
+
+-- 10. Consulta comments (internal — authenticated professionals only)
+CREATE TABLE IF NOT EXISTS consulta_comentarios (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  consulta_id UUID NOT NULL REFERENCES consultas(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES auth.users(id),
+  contenido TEXT NOT NULL,
+  autor_nombre TEXT NOT NULL
+);
+
+ALTER TABLE consultas ENABLE ROW LEVEL SECURITY;
+ALTER TABLE consulta_comentarios ENABLE ROW LEVEL SECURITY;
+
+-- Anon can insert (public landing form), authenticated users can read/update
+CREATE POLICY "Public insert consultas" ON consultas
+  FOR INSERT TO anon WITH CHECK (true);
+CREATE POLICY "Authenticated read consultas" ON consultas
+  FOR SELECT TO authenticated USING (true);
+CREATE POLICY "Authenticated update consultas" ON consultas
+  FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+
+-- Comments: authenticated only
+CREATE POLICY "Authenticated users" ON consulta_comentarios
+  FOR ALL TO authenticated USING (true) WITH CHECK (true);
+
+-- ============================================================
 -- Datos iniciales: 3 consultorios
 -- ============================================================
 INSERT INTO consultorios (name, description, color) VALUES

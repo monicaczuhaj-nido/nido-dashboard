@@ -23,6 +23,7 @@ function FieldError({ message }: { message?: string }) {
 export default function PatientForm({ patient, mode }: PatientFormProps) {
   const [serverError, setServerError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [saved, setSaved] = useState(false)
 
   const {
     register,
@@ -62,8 +63,12 @@ export default function PatientForm({ patient, mode }: PatientFormProps) {
     }
 
     if (result && !result.success) {
-      setServerError(result.error)
+      setServerError(result.error ?? 'Error desconocido')
       setLoading(false)
+    } else if (result?.success) {
+      setLoading(false)
+      setSaved(true)
+      setTimeout(() => setSaved(false), 3000)
     }
   }
 
@@ -133,11 +138,14 @@ export default function PatientForm({ patient, mode }: PatientFormProps) {
 
       <button
         type="submit"
-        disabled={loading}
-        className="px-6 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        disabled={loading || saved}
+        className="px-6 py-2 text-white text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        style={{ background: saved ? '#809671' : '#4f46e5' }}
       >
         {loading
           ? mode === 'create' ? 'Creando...' : 'Guardando...'
+          : saved
+          ? '¡Guardado!'
           : mode === 'create' ? 'Crear paciente' : 'Guardar cambios'}
       </button>
     </form>

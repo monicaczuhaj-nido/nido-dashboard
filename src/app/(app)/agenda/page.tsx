@@ -13,7 +13,7 @@ export default async function AgendaPage() {
     .eq('profile_id', user!.id)
     .single()
 
-  const [{ data: appointments }, { data: patients }, { data: consultorios }, { data: activeBookings }, { data: professionalBookings }, { data: professionals }] =
+  const [{ data: appointments }, { data: consultorios }, { data: activeBookings }, { data: professionalBookings }, { data: professionals }] =
     await Promise.all([
       supabase
         .from('appointments')
@@ -21,10 +21,6 @@ export default async function AgendaPage() {
         .eq('professional_id', professional?.id ?? '')
         .neq('status', 'cancelled')
         .order('start_time'),
-      supabase
-        .from('patients')
-        .select('*')
-        .order('last_name'),
       supabase
         .from('consultorios')
         .select('*')
@@ -56,7 +52,6 @@ export default async function AgendaPage() {
 
       <AgendaCalendar
         appointments={(appointments ?? []) as AppointmentWithPatient[]}
-        patients={patients ?? []}
         consultorios={consultorios ?? []}
         activeBookings={(activeBookings ?? []) as Pick<Booking, 'id' | 'consultorio_id' | 'start_time' | 'end_time'>[]}
         professionalBookings={(professionalBookings ?? []) as { id: string; consultorio_id: string; professional_id: string; title: string | null; start_time: string; end_time: string; consultorios: { name: string } | null }[]}

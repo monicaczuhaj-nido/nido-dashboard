@@ -6,7 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { createSession } from '@/app/(app)/sesiones/actions'
 import FileUpload from './FileUpload'
-import type { Patient, Appointment } from '@/types'
+import PatientCombobox from '@/components/ui/PatientCombobox'
+import type { Appointment } from '@/types'
 
 const schema = z.object({
   patient_id: z.string().uuid('Seleccioná un paciente'),
@@ -21,8 +22,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 interface SessionFormProps {
-  patients: Patient[]
-  defaultPatientId?: string
+  defaultPatient?: { id: string; first_name: string; last_name: string }
   appointments?: Appointment[]
 }
 
@@ -31,7 +31,7 @@ function FieldError({ message }: { message?: string }) {
   return <p className="text-red-600 text-xs mt-1">{message}</p>
 }
 
-export default function SessionForm({ patients, defaultPatientId, appointments = [] }: SessionFormProps) {
+export default function SessionForm({ defaultPatient, appointments = [] }: SessionFormProps) {
   const [serverError, setServerError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
@@ -41,11 +41,12 @@ export default function SessionForm({ patients, defaultPatientId, appointments =
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      patient_id: defaultPatientId ?? '',
+      patient_id: defaultPatient?.id ?? '',
       session_date: new Date().toISOString().split('T')[0],
     },
   })
@@ -64,8 +65,6 @@ export default function SessionForm({ patients, defaultPatientId, appointments =
     Object.entries(values).forEach(([k, v]) => {
       if (v !== undefined && v !== '') formData.append(k, v)
     })
-
-    // Attach files
     uploadedFiles.forEach((file) => formData.append('files', file))
 
     const result = await createSession(formData)
@@ -74,7 +73,6 @@ export default function SessionForm({ patients, defaultPatientId, appointments =
       setServerError(result.error)
       setLoading(false)
     }
-    // On success, the server action redirects to the patient page
   }
 
   const inputClass =
@@ -87,25 +85,20 @@ export default function SessionForm({ patients, defaultPatientId, appointments =
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Paciente *</label>
-          {defaultPatientId ? (
+          {defaultPatient ? (
             <>
-              <input type="hidden" {...register('patient_id')} value={defaultPatientId} />
+              <input type="hidden" {...register('patient_id')} value={defaultPatient.id} />
               <div className={`${inputClass} bg-gray-50 text-gray-700`}>
-                {(() => {
-                  const p = patients.find((p) => p.id === defaultPatientId)
-                  return p ? `${p.last_name}, ${p.first_name}` : defaultPatientId
-                })()}
+                {defaultPatient.last_name}, {defaultPatient.first_name}
               </div>
             </>
           ) : (
-            <select {...register('patient_id')} className={inputClass}>
-              <option value="">Seleccionar paciente...</option>
-              {patients.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.last_name}, {p.first_name}
-                </option>
-              ))}
-            </select>
+            <>
+              <input type="hidden" {...register('patient_id')} />
+              <PatientCombobox
+                onChange={(id) => setValue('patient_id', id, { shouldValidate: true })}
+              />
+            </>
           )}
           <FieldError message={errors.patient_id?.message} />
         </div>
